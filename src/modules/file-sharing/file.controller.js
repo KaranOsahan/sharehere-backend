@@ -5,7 +5,7 @@ const File = require('./file.model');
 exports.initializeUpload = async (req, res) => {
   try {
     const { fileName, fileType } = req.body;
-    const userId = req.user.id; // Comes from auth middleware
+    const userId = req.user?.id || 'anonymous'; // Fallback for public routes
 
     if (!fileName || !fileType) {
       return res.status(400).json({ message: "File name and type are required" });
@@ -28,7 +28,7 @@ exports.initializeUpload = async (req, res) => {
 exports.finalizeUpload = async (req, res) => {
   try {
     const { key, fileName, size, type, code, fileId } = req.body;
-    const userId = req.user.id;
+    const userId = req.user?.id || 'anonymous';
 
     const file = await fileService.saveFileMetadata({
       key, fileName, size, type, code, fileId, userId

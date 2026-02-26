@@ -7,9 +7,9 @@ const fileSchema = new mongoose.Schema({
   size: { type: Number, required: true },
   type: { type: String, required: true },
   code: { type: String, required: true, unique: true },
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  owner: { type: mongoose.Schema.Types.Mixed }, // Allows ObjectId or 'anonymous' string
   downloadCount: { type: Number, default: 0 },
-  expiresAt: { type: Date, required: true }, 
+  expiresAt: { type: Date, required: true },
   createdAt: { type: Date, default: Date.now }
 });
 
